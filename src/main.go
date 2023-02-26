@@ -39,14 +39,14 @@ func main() {
 	fmt.Println("Getting the artifacts ...")
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatalf("Error on get your request: %v\n", err)
 		os.Exit(1)
 	}
 	defer res.Body.Close()
 
 	bodyBytes, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatalf("Error on read the body: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -55,8 +55,7 @@ func main() {
 	var bodyResponse = mapper.Artifacts{}
 	err = json.Unmarshal(bodyBytes, &bodyResponse)
 	if err != nil {
-		fmt.Println(err.Error())
-		fmt.Println("Failed in parser the json")
+		log.Fatalf("Failed in parser the json: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -64,7 +63,7 @@ func main() {
 	daysOfRetention, err := strconv.Atoi(daysOfRetentionString)
 
 	if err != nil {
-		fmt.Println("Failed to convert the string to int")
+		log.Fatalf("Failed to convert the string to int: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -79,7 +78,7 @@ func main() {
 
 	for _, artifact := range bodyResponse.Artifacts {
 		if artifact.CreatedAt.After(dataToRetention) {
-			fmt.Println("The artifact aren't deleted because of date are great than date of retention ...")
+			log.Printf("The artifact \"%d\" aren't deleted because of date are great than date of retention ...\n", artifact.Id)
 			continue
 		}
 
