@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -94,8 +95,7 @@ func main() {
 		}
 		defer res.Body.Close()
 		itemsDeleted += 1
-		textOfDeleted := fmt.Sprintf("Artifact with id '%d' removed with success ...", artifact.Id)
-		fmt.Println(textOfDeleted)
+		log.Printf("Artifact with id \"%d\" removed with success ...\n", artifact.Id)
 	}
 	fmt.Println("Total items deleted:", itemsDeleted)
 }
