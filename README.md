@@ -3,11 +3,11 @@
 ## Example usage
 
 ```
-uses: oobatousai/github-remove-artifact@v1
+uses: matheusrosmaninho/github-remove-artifact@v1
 with:
     retention-days: 7
     project-name: "hello-actions"
-    owner-account: "oobattousai"
+    owner-account: "matheusrosmaninho"
     access-token: ${{ secrets.myToken }}
 ```
 
